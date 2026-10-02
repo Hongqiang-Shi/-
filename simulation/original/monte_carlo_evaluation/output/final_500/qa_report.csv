@@ -1,0 +1,8 @@
+"check","observed","passed"
+"expected_row_count","17500 of 17500",TRUE
+"no_duplicate_keys","0",TRUE
+"complete_scenario_method_coverage","TRUE",TRUE
+"finite_successful_estimates","TRUE",TRUE
+"twfe_error_equals_true_selection_bias","6.661338e-16",TRUE
+"adjusted_did_identity","0e+00",TRUE
+"maximum_failure_rate_at_most_10pct","0",TRUE

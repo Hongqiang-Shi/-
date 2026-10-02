@@ -1,0 +1,18 @@
+\begin{table}[htbp]
+\centering\small
+\caption{Numerical minima among the four adjusted estimators.}\label{tab:ranking}
+\begin{tabular}{llll}
+\toprule
+Scenario & Smallest absolute bias & Lowest RMSE & Lowest variance \\
+\midrule
+S0 & RF adj. & SC adj. & SC adj. \\
+S1 & RF adj. & Linear adj. & Linear adj. \\
+S2 & RF adj. & RF adj. & SC adj. \\
+S3 & RF adj. & RF adj. & GBM adj. \\
+S4 & RF adj. & RF adj. & Linear adj. \\
+S5 & RF adj. & RF adj. & GBM adj. \\
+S6 & RF adj. & Linear adj. & SC adj. \\
+\bottomrule
+\end{tabular}
+\par\smallskip\begin{minipage}{0.94\linewidth}\footnotesize Minima describe this Monte Carlo sample. Linear adjustment equals TWFE. Small differences, especially in S0 and between SC and Linear in S1 and S4, should not be interpreted as established practical advantages.\end{minipage}
+\end{table}

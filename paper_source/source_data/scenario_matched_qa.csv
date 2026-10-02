@@ -1,0 +1,11 @@
+"check","value","passed"
+"row_count_3500","3500",TRUE
+"500_per_scenario","500;500;500;500;500;500;500",TRUE
+"finite_results","3500",TRUE
+"twfe_matches_saved","4.88498130835069e-15",TRUE
+"true_sb_matches_saved","4.88498130835069e-15",TRUE
+"s0_no_correction","0",TRUE
+"linear_formula_identity","6.66133814775094e-16",TRUE
+"quadratic_formula_identity","6.66133814775094e-16",TRUE
+"error_identity","8.88178419700125e-16",TRUE
+"mse_decomposition","5.55111512312578e-17",TRUE

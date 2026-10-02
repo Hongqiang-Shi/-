@@ -1,0 +1,106 @@
+pre_window_weeks,outcome,method,estimated_selection_bias,tau_estimate,estimator_label
+8,daily_homicides,no_correction,0.0,0.032155676770038485,TWFE DID
+8,daily_homicides,linear_gap,0.0053403884615890775,0.026815288308449408,BC-TWFE: linear gap
+8,daily_homicides,quadratic_gap,-0.022315355617027428,0.05447103238706591,BC-TWFE: quadratic gap
+8,daily_homicides_men,no_correction,0.0,0.029440860557881827,TWFE DID
+8,daily_homicides_men,linear_gap,0.0008636563537779661,0.02857720420410386,BC-TWFE: linear gap
+8,daily_homicides_men,quadratic_gap,-0.033673425105795914,0.06311428566367774,BC-TWFE: quadratic gap
+8,daily_homicides_women,no_correction,0.0,0.002714816027335165,TWFE DID
+8,daily_homicides_women,linear_gap,0.004476732115404237,-0.0017619160880690725,BC-TWFE: linear gap
+8,daily_homicides_women,quadratic_gap,0.011358069274254328,-0.008643253246919162,BC-TWFE: quadratic gap
+8,crime_1,no_correction,0.0,0.019804663421684656,TWFE DID
+8,crime_1,linear_gap,-0.0038599318614516024,0.023664595283136258,BC-TWFE: linear gap
+8,crime_1,quadratic_gap,-0.022163563386967622,0.041968226808652274,BC-TWFE: quadratic gap
+8,crime_2,no_correction,0.0,0.016077340212978485,TWFE DID
+8,crime_2,linear_gap,-0.002750779489001356,0.018828119701979843,BC-TWFE: linear gap
+8,crime_2,quadratic_gap,-0.014777996825869165,0.03085533703884765,BC-TWFE: quadratic gap
+8,crime_3,no_correction,0.0,0.009577523540289472,TWFE DID
+8,crime_3,linear_gap,-0.005103052975393374,0.014680576515682846,BC-TWFE: linear gap
+8,crime_3,quadratic_gap,-0.013238597775071899,0.02281612131536137,BC-TWFE: quadratic gap
+8,crime_4,no_correction,0.0,0.007213641854599294,TWFE DID
+8,crime_4,linear_gap,-0.0037640456048510587,0.010977687459450353,BC-TWFE: linear gap
+8,crime_4,quadratic_gap,-0.013559768498978192,0.020773410353577486,BC-TWFE: quadratic gap
+12,daily_homicides,no_correction,0.0,0.03436959022065406,TWFE DID
+12,daily_homicides,linear_gap,0.007318903632696213,0.02705068658795785,BC-TWFE: linear gap
+12,daily_homicides,quadratic_gap,0.0020313486873522607,0.0323382415333018,BC-TWFE: quadratic gap
+12,daily_homicides_men,no_correction,0.0,0.03196611308313435,TWFE DID
+12,daily_homicides_men,linear_gap,0.006225383875659126,0.025740729207475225,BC-TWFE: linear gap
+12,daily_homicides_men,quadratic_gap,-0.005555867490475411,0.03752198057360976,BC-TWFE: quadratic gap
+12,daily_homicides_women,no_correction,0.0,0.0024034769445970697,TWFE DID
+12,daily_homicides_women,linear_gap,0.0010935197408341634,0.0013099572037629063,BC-TWFE: linear gap
+12,daily_homicides_women,quadratic_gap,0.007587216143146614,-0.005183739198549545,BC-TWFE: quadratic gap
+12,crime_1,no_correction,0.0,0.02140597286873878,TWFE DID
+12,crime_1,linear_gap,0.001953034132955266,0.019452938735783513,BC-TWFE: linear gap
+12,crime_1,quadratic_gap,-0.007645418568272307,0.02905139143701109,BC-TWFE: quadratic gap
+12,crime_2,no_correction,0.0,0.017827842960821655,TWFE DID
+12,crime_2,linear_gap,0.0025819060793394856,0.01524593688148217,BC-TWFE: linear gap
+12,crime_2,quadratic_gap,-0.004042244064190199,0.021870087025011854,BC-TWFE: quadratic gap
+12,crime_3,no_correction,0.0,0.01202793955453527,TWFE DID
+12,crime_3,linear_gap,0.003224229832063479,0.00880370972247179,BC-TWFE: linear gap
+12,crime_3,quadratic_gap,-0.0059203327876144445,0.017948272342149716,BC-TWFE: quadratic gap
+12,crime_4,no_correction,0.0,0.009361353776247378,TWFE DID
+12,crime_4,linear_gap,0.0030160070797624625,0.006345346696484917,BC-TWFE: linear gap
+12,crime_4,quadratic_gap,-0.004467994973500113,0.013829348749747492,BC-TWFE: quadratic gap
+26,daily_homicides,no_correction,0.0,0.03706931366505836,TWFE DID
+26,daily_homicides,linear_gap,0.006014829869167022,0.031054483795891336,BC-TWFE: linear gap
+26,daily_homicides,quadratic_gap,0.009547273284998315,0.027522040380060044,BC-TWFE: quadratic gap
+26,daily_homicides_men,no_correction,0.0,0.034548341729192786,TWFE DID
+26,daily_homicides_men,linear_gap,0.0057891294920754885,0.028759212237117297,BC-TWFE: linear gap
+26,daily_homicides_men,quadratic_gap,0.008016906034500153,0.026531435694692632,BC-TWFE: quadratic gap
+26,daily_homicides_women,no_correction,0.0,0.0025209717247252753,TWFE DID
+26,daily_homicides_women,linear_gap,0.00022570032252183748,0.002295271402203438,BC-TWFE: linear gap
+26,daily_homicides_women,quadratic_gap,0.0015303672404409722,0.0009906044842843032,BC-TWFE: quadratic gap
+26,crime_1,no_correction,0.0,0.022759598557470853,TWFE DID
+26,crime_1,linear_gap,0.0022548605240913,0.02050473803337955,BC-TWFE: linear gap
+26,crime_1,quadratic_gap,0.003958514662278972,0.018801083895191882,BC-TWFE: quadratic gap
+26,crime_2,no_correction,0.0,0.019247153555664163,TWFE DID
+26,crime_2,linear_gap,0.0024852320801584324,0.01676192147550573,BC-TWFE: linear gap
+26,crime_2,quadratic_gap,0.004900784567314839,0.014346368988349326,BC-TWFE: quadratic gap
+26,crime_3,no_correction,0.0,0.013198237932280452,TWFE DID
+26,crime_3,linear_gap,0.002372574234276353,0.010825663698004098,BC-TWFE: linear gap
+26,crime_3,quadratic_gap,0.0044684779668413025,0.008729759965439149,BC-TWFE: quadratic gap
+26,crime_4,no_correction,0.0,0.010322567503418548,TWFE DID
+26,crime_4,linear_gap,0.0020010781180993835,0.008321489385319163,BC-TWFE: linear gap
+26,crime_4,quadratic_gap,0.0037894413733202447,0.006533126130098302,BC-TWFE: quadratic gap
+52,daily_homicides,no_correction,0.0,0.03816374228608272,TWFE DID
+52,daily_homicides,linear_gap,0.0023223730954480184,0.0358413691906347,BC-TWFE: linear gap
+52,daily_homicides,quadratic_gap,0.008557567927294426,0.029606174358788293,BC-TWFE: quadratic gap
+52,daily_homicides_men,no_correction,0.0,0.0350706474376687,TWFE DID
+52,daily_homicides_men,linear_gap,0.0014121659876127086,0.033658481450055996,BC-TWFE: linear gap
+52,daily_homicides_men,quadratic_gap,0.0073753900844776565,0.02769525735319105,BC-TWFE: quadratic gap
+52,daily_homicides_women,no_correction,0.0,0.003093094631043956,TWFE DID
+52,daily_homicides_women,linear_gap,0.0009102070842574893,0.002182887546786467,BC-TWFE: linear gap
+52,daily_homicides_women,quadratic_gap,0.0011821777948745314,0.0019109168361694248,BC-TWFE: quadratic gap
+52,crime_1,no_correction,0.0,0.02287938125704079,TWFE DID
+52,crime_1,linear_gap,1.8153788582594976e-06,0.02287756587818253,BC-TWFE: linear gap
+52,crime_1,quadratic_gap,0.003324133635903082,0.019555247621137705,BC-TWFE: quadratic gap
+52,crime_2,no_correction,0.0,0.01930206318504188,TWFE DID
+52,crime_2,linear_gap,6.076881345949345e-05,0.019241294371582382,BC-TWFE: linear gap
+52,crime_2,quadratic_gap,0.0034471067876849174,0.01585495639735696,BC-TWFE: quadratic gap
+52,crime_3,no_correction,0.0,0.013280380966551143,TWFE DID
+52,crime_3,linear_gap,5.552144099326903e-06,0.013274828822451817,BC-TWFE: linear gap
+52,crime_3,quadratic_gap,0.003653102734115639,0.009627278232435504,BC-TWFE: quadratic gap
+52,crime_4,no_correction,0.0,0.010225368603028159,TWFE DID
+52,crime_4,linear_gap,-0.00021481099759962288,0.010440179600627781,BC-TWFE: linear gap
+52,crime_4,quadratic_gap,0.002941319671480375,0.007284048931547784,BC-TWFE: quadratic gap
+104,daily_homicides,no_correction,0.0,0.037204041525850044,TWFE DID
+104,daily_homicides,linear_gap,-0.00105646749931574,0.038260509025165784,BC-TWFE: linear gap
+104,daily_homicides,quadratic_gap,0.0005762701287759155,0.03662777139707413,BC-TWFE: quadratic gap
+104,daily_homicides_men,no_correction,0.0,0.03419098631864588,TWFE DID
+104,daily_homicides_men,linear_gap,-0.001221632944826091,0.03541261926347197,BC-TWFE: linear gap
+104,daily_homicides_men,quadratic_gap,3.968887805282442e-05,0.03415129744059306,BC-TWFE: quadratic gap
+104,daily_homicides_women,no_correction,0.0,0.0030130550405357143,TWFE DID
+104,daily_homicides_women,linear_gap,0.0001651655323367375,0.002847889508198977,BC-TWFE: linear gap
+104,daily_homicides_women,quadratic_gap,0.0005365812857477993,0.002476473754787915,BC-TWFE: quadratic gap
+104,crime_1,no_correction,0.0,0.023208174803919443,TWFE DID
+104,crime_1,linear_gap,0.0010443899977071302,0.02216378480621231,BC-TWFE: linear gap
+104,crime_1,quadratic_gap,-0.000733106068733275,0.023941280872652716,BC-TWFE: quadratic gap
+104,crime_2,no_correction,0.0,0.01947321295725548,TWFE DID
+104,crime_2,linear_gap,0.0006680260329549464,0.018805186924300533,BC-TWFE: linear gap
+104,crime_2,quadratic_gap,-0.0006633381127766442,0.020136551070032125,BC-TWFE: quadratic gap
+104,crime_3,no_correction,0.0,0.013476882160392764,TWFE DID
+104,crime_3,linear_gap,0.0007911658062910191,0.012685716354101746,BC-TWFE: linear gap
+104,crime_3,quadratic_gap,-0.000683517489752811,0.014160399650145577,BC-TWFE: quadratic gap
+104,crime_4,no_correction,0.0,0.010639626331115674,TWFE DID
+104,crime_4,linear_gap,0.0010254654341846844,0.00961416089693099,BC-TWFE: linear gap
+104,crime_4,quadratic_gap,-0.00037364063940882033,0.011013266970524495,BC-TWFE: quadratic gap

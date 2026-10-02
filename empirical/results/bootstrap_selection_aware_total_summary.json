@@ -1,0 +1,12 @@
+{
+  "draws": 99,
+  "se": 0.13326150699637027,
+  "ci025": -0.025443200092256642,
+  "ci975": 0.14328659915127906,
+  "selection_counts": {
+    "twfe": 61,
+    "synthetic_control": 19,
+    "random_forest": 15,
+    "gradient_boosting": 4
+  }
+}

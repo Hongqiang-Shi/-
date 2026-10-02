@@ -1,0 +1,19 @@
+\begin{table}[htbp]
+\centering\small
+\caption{Empirical TWFE and bias-corrected DID estimates.}\label{tab:empiricalestimates}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lrrrrr}
+\toprule
+Outcome & TWFE & Linear BC & Quadratic BC & Pre-period selection & Selected 95\% CI \\
+\midrule
+Total homicides & 0.0344 & 0.0271 & 0.0323 & TWFE & $[-0.0059,\ 0.1342]$ \\
+Homicides: men & 0.0320 & 0.0257 & 0.0375 & TWFE & $[-0.0075,\ 0.1363]$ \\
+Homicides: women & 0.0024 & 0.0013 & $-0.0052$ & TWFE & $[-0.0072,\ 0.0108]$ \\
+Suspected criminals I & 0.0214 & 0.0195 & 0.0291 & TWFE & $[-0.0018,\ 0.0726]$ \\
+Suspected criminals II & 0.0178 & 0.0152 & 0.0219 & TWFE & $[-0.0036,\ 0.0634]$ \\
+Suspected criminals III & 0.0120 & 0.0088 & 0.0179 & TWFE & $[-0.0081,\ 0.0483]$ \\
+Suspected criminals IV & 0.0094 & 0.0063 & 0.0138 & TWFE & $[-0.0094,\ 0.0454]$ \\
+\bottomrule
+\end{tabular}}
+\par\smallskip\begin{minipage}{0.96\linewidth}\footnotesize Notes: BC denotes bias-corrected. The main sample contains 358 municipality/district units and uses the final 12 pre-strike weeks plus the 13 strike days. Selection minimizes RMSE over 153 rolling pre-treatment placebo windows. Confidence intervals are percentile intervals from 999 treated/control-stratified AIS block bootstrap draws and correspond to the selected estimator.\end{minipage}
+\end{table}

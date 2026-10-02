@@ -1,0 +1,20 @@
+{
+  "sample_rows_balanced": true,
+  "main_window_rows": true,
+  "homicide_source_dta_match": true,
+  "placebo_rows": true,
+  "strike_rows": true,
+  "fixed_bootstrap_rows": true,
+  "selection_aware_draws": true,
+  "twfe_common": true,
+  "bias_identity": true,
+  "no_placebo_failure": true,
+  "pdf_pages": 21,
+  "pdf_contains_empirical": true,
+  "pdf_contains_discussion": true,
+  "pdf_contains_conclusion": true,
+  "pdf_no_selection_placeholder": true,
+  "pdf_contains_selection_table": true,
+  "fixed_bootstrap_failure_count": 0,
+  "selection_bootstrap_failure_count": 0
+}

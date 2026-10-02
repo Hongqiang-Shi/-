@@ -1,0 +1,41 @@
+{
+  "painel_rows": 27830,
+  "painel_valid_ais_rows": 27418,
+  "painel_excluded_rows": 412,
+  "painel_exact_duplicate_rows_retained": 7,
+  "painel_valid_homicides": 27418,
+  "dta_rows": 22130,
+  "dta_valid_ais_rows": 21892,
+  "dta_duplicated_unit_days_before_reaggregation": 1,
+  "dta_disagreement_unit_days": 0,
+  "dta_total_valid_homicides": 27418,
+  "units": 358,
+  "ais": 22,
+  "calendar_days": 2557,
+  "balanced_rows": 915406,
+  "zero_filled_unit_days": 893515,
+  "sum_total_balanced": 27418,
+  "main_window_rows": 34726,
+  "main_window_zero_total_rows": 33943,
+  "main_window_total_homicides": 989,
+  "strike_window_rows": 4654,
+  "strike_window_zero_total_rows": 4448,
+  "strike_window_total_homicides": 318,
+  "sex_unclassified_rows_counted_in_women_like_stata": 24,
+  "exposure_district_p75": 0.5877281947261663,
+  "numeric_p75_set": [
+    "ais 02",
+    "ais 06",
+    "ais 07",
+    "ais 11",
+    "ais 12",
+    "ais 13"
+  ],
+  "paper_five_set": [
+    "ais 02",
+    "ais 06",
+    "ais 11",
+    "ais 12",
+    "ais 13"
+  ]
+}

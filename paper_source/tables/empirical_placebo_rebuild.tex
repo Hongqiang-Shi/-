@@ -1,0 +1,16 @@
+\begin{table}[htbp]
+\centering\small
+\caption{Total-homicide rolling pre-strike placebo performance (154 windows, 84-day training and 13-day test). The pseudo-effect is zero; variance is the population variance of placebo estimates. SC--entropy uses an entropy tie-break; RF--empirical and GB--empirical use forecast-known calendar and group features.}
+\label{tab:placeborebuild}
+\begin{tabular}{lrrrrrr}
+\toprule
+Method & Signed error & Variance & MAE & RMSE & Windows & Failures\\
+\midrule
+No correction & 0.00028 & 0.000069 & 0.00675 & 0.00830 & 154 & 0\\
+Linear gap & -0.00008 & 0.000090 & 0.00755 & 0.00946 & 154 & 0\\
+SC--entropy & 0.00105 & 0.000076 & 0.00718 & 0.00876 & 154 & 0\\
+RF--empirical & 0.00202 & 0.000061 & 0.00642 & 0.00809 & 154 & 0\\
+GB--empirical & 0.00018 & 0.000067 & 0.00655 & 0.00820 & 154 & 0\\
+\bottomrule
+\end{tabular}
+\end{table}

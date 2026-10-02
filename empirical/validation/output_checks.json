@@ -1,0 +1,16 @@
+{
+  "all_placebo_candidates_have_154_windows": true,
+  "all_placebo_failures_zero": true,
+  "all_methods_share_twfe_by_outcome": true,
+  "all_adjusted_equal_twfe_minus_bias": true,
+  "all_bias_equal_predicted_gap_minus_pre_gap": true,
+  "selected_per_outcome": {
+    "total": "random_forest",
+    "men": "random_forest",
+    "women": "random_forest",
+    "crime_1": "random_forest",
+    "crime_2": "random_forest",
+    "crime_3": "random_forest",
+    "crime_4": "twfe"
+  }
+}

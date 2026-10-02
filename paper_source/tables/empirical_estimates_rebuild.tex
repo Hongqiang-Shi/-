@@ -1,0 +1,53 @@
+\begin{longtable}{llrrrrl}
+\caption{Strike-period TWFE, predicted bias and correction on the common unit/date panel. Percentile intervals resample AIS within treatment arms; * marks the pre-strike RMSE winner.}\label{tab:estimatesrebuild}\\
+\toprule
+Outcome & Method & TWFE & Bias $\widehat B_m$ & Adjusted & 95\% interval & Selected\\
+\midrule
+\endfirsthead
+\toprule
+Outcome & Method & TWFE & Bias & Adjusted & 95\% interval & Selected\\
+\midrule
+\endhead
+Total & No correction & 0.0344 & 0.0000 & 0.0344 & [-0.016, 0.142] & \\
+Total & Linear gap & 0.0344 & 0.0073 & 0.0271 & [-0.018, 0.135] & \\
+Total & SC--entropy & 0.0344 & 0.0456 & -0.0112 & [-0.045, 0.065] & \\
+Total & RF--empirical & 0.0344 & -0.0017 & 0.0361 & [-0.013, 0.155] & *\\
+Total & GB--empirical & 0.0344 & -0.0014 & 0.0357 & [-0.012, 0.156] & \\
+\midrule
+Men & No correction & 0.0320 & 0.0000 & 0.0320 & [-0.015, 0.144] & \\
+Men & Linear gap & 0.0320 & 0.0062 & 0.0257 & [-0.017, 0.135] & \\
+Men & SC--entropy & 0.0320 & 0.0416 & -0.0096 & [-0.039, 0.067] & \\
+Men & RF--empirical & 0.0320 & -0.0045 & 0.0365 & [-0.008, 0.152] & *\\
+Men & GB--empirical & 0.0320 & -0.0052 & 0.0372 & [-0.007, 0.153] & \\
+\midrule
+Women & No correction & 0.0024 & 0.0000 & 0.0024 & [-0.007, 0.011] & \\
+Women & Linear gap & 0.0024 & 0.0011 & 0.0013 & [-0.009, 0.011] & \\
+Women & SC--entropy & 0.0024 & -0.0012 & 0.0036 & [-0.008, 0.012] & \\
+Women & RF--empirical & 0.0024 & 0.0008 & 0.0016 & [-0.007, 0.012] & *\\
+Women & GB--empirical & 0.0024 & 0.0027 & -0.0003 & [-0.010, 0.010] & \\
+\midrule
+Crime 1 & No correction & 0.0214 & 0.0000 & 0.0214 & [-0.006, 0.076] & \\
+Crime 1 & Linear gap & 0.0214 & 0.0020 & 0.0195 & [-0.007, 0.075] & \\
+Crime 1 & SC--entropy & 0.0214 & 0.0186 & 0.0028 & [-0.020, 0.051] & \\
+Crime 1 & RF--empirical & 0.0214 & -0.0048 & 0.0262 & [-0.002, 0.081] & *\\
+Crime 1 & GB--empirical & 0.0214 & -0.0044 & 0.0258 & [-0.002, 0.082] & \\
+\midrule
+Crime 2 & No correction & 0.0178 & 0.0000 & 0.0178 & [-0.008, 0.067] & \\
+Crime 2 & Linear gap & 0.0178 & 0.0026 & 0.0152 & [-0.009, 0.064] & \\
+Crime 2 & SC--entropy & 0.0178 & 0.0163 & 0.0015 & [-0.021, 0.045] & \\
+Crime 2 & RF--empirical & 0.0178 & -0.0031 & 0.0209 & [-0.005, 0.070] & *\\
+Crime 2 & GB--empirical & 0.0178 & -0.0026 & 0.0205 & [-0.004, 0.069] & \\
+\midrule
+Crime 3 & No correction & 0.0120 & 0.0000 & 0.0120 & [-0.010, 0.051] & \\
+Crime 3 & Linear gap & 0.0120 & 0.0032 & 0.0088 & [-0.013, 0.044] & \\
+Crime 3 & SC--entropy & 0.0120 & 0.0122 & -0.0002 & [-0.022, 0.034] & \\
+Crime 3 & RF--empirical & 0.0120 & -0.0024 & 0.0144 & [-0.006, 0.051] & *\\
+Crime 3 & GB--empirical & 0.0120 & -0.0028 & 0.0148 & [-0.005, 0.052] & \\
+\midrule
+Crime 4 & No correction & 0.0094 & 0.0000 & 0.0094 & [-0.012, 0.047] & *\\
+Crime 4 & Linear gap & 0.0094 & 0.0030 & 0.0063 & [-0.015, 0.046] & \\
+Crime 4 & SC--entropy & 0.0094 & 0.0094 & -0.0000 & [-0.021, 0.038] & \\
+Crime 4 & RF--empirical & 0.0094 & -0.0016 & 0.0110 & [-0.010, 0.050] & \\
+Crime 4 & GB--empirical & 0.0094 & -0.0014 & 0.0108 & [-0.010, 0.049] & \\
+\bottomrule
+\end{longtable}

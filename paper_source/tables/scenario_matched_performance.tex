@@ -1,0 +1,18 @@
+\begin{table}[htbp]
+\centering\small
+\caption{Scenario-matched gap correction and TWFE comparison (500 replications per scenario).}\label{tab:matched}
+\begin{tabular}{llrrrrr}
+\toprule
+Scenario & Correction & Mean & Bias & RMSE & TWFE RMSE & RMSE change (\%) \\
+\midrule
+S0 & None & 1.9942 & -0.0058 & 0.0651 & 0.0651 & +0.0 \\
+S1 & Linear gap & 1.9965 & -0.0035 & 0.1372 & 0.0819 & -67.6 \\
+S2 & Linear gap & 2.0002 & 0.0002 & 0.1344 & 0.2486 & +46.0 \\
+S3 & Linear gap & 1.9955 & -0.0045 & 0.1377 & 0.8345 & +83.5 \\
+S4 & Quadratic gap & 1.9686 & -0.0314 & 0.3733 & 0.2836 & -31.6 \\
+S5 & Quadratic gap & 1.9977 & -0.0023 & 0.4058 & 0.9314 & +56.4 \\
+S6 & Linear gap & 2.0012 & 0.0012 & 0.3971 & 0.3052 & -30.1 \\
+\bottomrule
+\end{tabular}
+\par\smallskip\begin{minipage}{0.96\linewidth}\footnotesize A positive RMSE change is an improvement relative to TWFE. S0 applies no correction; S1--S3 and S6 fit a linear pre-treatment group gap; S4--S5 fit a quadratic gap. The scenario label selects the polynomial order, so this estimator is an oracle benchmark rather than a feasible model-selection rule.\end{minipage}
+\end{table}

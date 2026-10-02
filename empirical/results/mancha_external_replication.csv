@@ -1,0 +1,15 @@
+treatment_definition,outcome,published_interaction,reproduced_interaction,n_source_unit_days,n_ais,hdfe_iterations
+released_code_four,total,0.335,0.3349964012954002,21886,22,240
+released_code_four,men,0.267,0.2665955127800066,21886,22,240
+released_code_four,women,0.069,0.06840088851539299,21886,22,240
+released_code_four,crime_1,0.297,0.2973402132011575,21886,22,240
+released_code_four,crime_2,0.267,0.26712787805749727,21886,22,240
+released_code_four,crime_3,0.18,0.17982244769117425,21886,22,240
+released_code_four,crime_4,0.159,0.15904290018163805,21886,22,240
+paper_intended_five,total,0.335,0.22439821663142182,21886,22,240
+paper_intended_five,men,0.267,0.1840308579913666,21886,22,240
+paper_intended_five,women,0.069,0.040367358640054654,21886,22,240
+paper_intended_five,crime_1,0.297,0.23622090179478816,21886,22,240
+paper_intended_five,crime_2,0.267,0.18812295646374558,21886,22,240
+paper_intended_five,crime_3,0.18,0.08303247909739479,21886,22,240
+paper_intended_five,crime_4,0.159,0.06024107856519645,21886,22,240

@@ -1,0 +1,3 @@
+# Final PDF visual QA
+
+The rebuilt `main.pdf` compiled successfully with Tectonic and has 21 pages. All 21 pages were rendered with Poppler at 100 dpi and inspected in four contact sheets (`pdf_contact_1.png`--`pdf_contact_4.png`). Empirical table/figure pages 17--19 were additionally rendered and inspected at 160 dpi (`high_page-17.png`--`high_page-19.png`). No clipped table cells, overlapping text, missing figures, empty plot panels, or unresolved selection placeholder were observed. The final TeX log has no undefined references or overfull/underfull box warnings. Poppler reported unavailable display fonts named Symbol and ArialUnicode while rendering, but the inspected mathematical and table glyphs were visible in the output.

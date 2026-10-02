@@ -1,0 +1,15 @@
+\begin{table}[htbp]
+\centering\small
+\caption{Fixed-method versus full selection-aware AIS bootstrap for total homicides. Both rows share the original-sample point estimate; percentile intervals differ in whether selection is repeated.}
+\label{tab:selectionrebuild}
+\begin{tabular}{lrrrl}
+\toprule
+Procedure & Draws & Estimate & 95\% interval & Re-selection\\
+\midrule
+Random Forest fixed & 499 & 0.0361 & [-0.0126, 0.1552] & No\\
+Full RMSE selection & 99 & 0.0361 & [-0.0254, 0.1433] & Yes\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Across 99 selection-aware resamples, the pre-strike RMSE rule chose no correction 61, linear gap 0, Synthetic Control 19, Random Forest 15, Gradient Boosting 4. The observed-sample winner was Random Forest. Selection changes across draws, showing that the small placebo-RMSE advantage is sensitive to AIS composition. Neither interval is a randomization-based causal interval.

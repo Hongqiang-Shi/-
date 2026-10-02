@@ -1,0 +1,29 @@
+treatment_definition,outcome,outcome_label,method,n_placebo_windows,mean_mse_difference_vs_no_correction,paired_mse_mcse,rmse_reduction_pct
+replication_code_4_AIS,daily_homicides,Total homicides,linear_gap,153,2.9437678214797514e-05,1.0926297497222104e-05,-17.916873211025255
+replication_code_4_AIS,daily_homicides,Total homicides,quadratic_gap,153,0.0001423569214199826,2.451475351966927e-05,-69.94450763490536
+replication_code_4_AIS,daily_homicides_men,Homicides (men),linear_gap,153,2.8949710185947638e-05,9.409851952725046e-06,-19.30775226164359
+replication_code_4_AIS,daily_homicides_men,Homicides (men),quadratic_gap,153,0.0001359943395187133,2.5373611718909613e-05,-72.89089297852573
+replication_code_4_AIS,daily_homicides_women,Homicides (women),linear_gap,153,3.1448311689123556e-06,7.479297612513066e-07,-29.258450503411474
+replication_code_4_AIS,daily_homicides_women,Homicides (women),quadratic_gap,153,1.0230381337892399e-05,1.7114950610680543e-06,-78.38392531794734
+replication_code_4_AIS,crime_1,Suspected criminals (I),linear_gap,153,1.2010472284520537e-05,4.610174199162432e-06,-15.488356131728901
+replication_code_4_AIS,crime_1,Suspected criminals (I),quadratic_gap,153,5.491085252268659e-05,9.017798226789138e-06,-58.93093101594936
+replication_code_4_AIS,crime_2,Suspected criminals (II),linear_gap,153,1.209267645898872e-05,4.3991053809438645e-06,-17.961279140146537
+replication_code_4_AIS,crime_2,Suspected criminals (II),quadratic_gap,153,5.106758326360072e-05,8.217183069807145e-06,-62.888109481325166
+replication_code_4_AIS,crime_3,Suspected criminals (III),linear_gap,153,1.2005395774058382e-05,3.995045851302145e-06,-20.828068951170852
+replication_code_4_AIS,crime_3,Suspected criminals (III),quadratic_gap,153,4.715396906633083e-05,7.12019617930102e-06,-67.5269973476245
+replication_code_4_AIS,crime_4,Suspected criminals (IV),linear_gap,153,1.0077974678264399e-05,3.1890766376495954e-06,-21.34329485591956
+replication_code_4_AIS,crime_4,Suspected criminals (IV),quadratic_gap,153,3.794551953739638e-05,6.220000962708742e-06,-66.69585069790807
+paper_intended_5_AIS,daily_homicides,Total homicides,linear_gap,153,1.8912060091446143e-05,9.655305449303078e-06,-13.73233645183078
+paper_intended_5_AIS,daily_homicides,Total homicides,quadratic_gap,153,0.00010130539901068343,1.95037896484159e-05,-60.38086785776708
+paper_intended_5_AIS,daily_homicides_men,Homicides (men),linear_gap,153,1.7887403525554907e-05,8.024744851585399e-06,-14.792840079400401
+paper_intended_5_AIS,daily_homicides_men,Homicides (men),quadratic_gap,153,9.480635941487358e-05,1.8865449050348463e-05,-63.83148004145651
+paper_intended_5_AIS,daily_homicides_women,Homicides (women),linear_gap,153,2.0082340259188645e-06,5.705427032489173e-07,-25.660006796830654
+paper_intended_5_AIS,daily_homicides_women,Homicides (women),quadratic_gap,153,6.78644633801236e-06,1.46444138685897e-06,-71.95256792941223
+paper_intended_5_AIS,crime_1,Suspected criminals (I),linear_gap,153,7.741825544661461e-06,3.5231568082742913e-06,-12.89396682199031
+paper_intended_5_AIS,crime_1,Suspected criminals (I),quadratic_gap,153,4.08068516435307e-05,8.235774766981155e-06,-56.42581775562126
+paper_intended_5_AIS,crime_2,Suspected criminals (II),linear_gap,153,7.295540577511448e-06,2.982017227968226e-06,-13.805519369138771
+paper_intended_5_AIS,crime_2,Suspected criminals (II),quadratic_gap,153,3.754281133291619e-05,7.073923777012408e-06,-58.71172756897385
+paper_intended_5_AIS,crime_3,Suspected criminals (III),linear_gap,153,7.2097236717723574e-06,2.529589191025224e-06,-16.34744372090494
+paper_intended_5_AIS,crime_3,Suspected criminals (III),quadratic_gap,153,3.461170690291888e-05,5.638452606227259e-06,-64.25212888421332
+paper_intended_5_AIS,crime_4,Suspected criminals (IV),linear_gap,153,5.776383755804588e-06,2.037030477485179e-06,-16.780326450202267
+paper_intended_5_AIS,crime_4,Suspected criminals (IV),quadratic_gap,153,2.566300472969204e-05,4.126262914997016e-06,-61.74402773981907

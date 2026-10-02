@@ -1,0 +1,278 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,longtable,graphicx}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parskip}{0.35em}
+\setlength{\parindent}{1.3em}
+\title{Scenario-Matched Gap Correction in Difference-in-Differences:\\Simulation and Empirical Evidence}
+\author{}
+\date{Revised thesis draft}
+\begin{document}
+\maketitle
+\input{abstract.tex}
+
+\section{Introduction}\label{sec:introduction}
+Difference-in-Differences (DiD) provides a way to estimate treatment effects when randomized assignment is unavailable and outcomes are observed before and after an intervention. By comparing the change in outcomes for treated units with the corresponding change for untreated units, it removes permanent differences in outcome levels and shocks shared by the two groups. These features make the design useful for evaluating interventions introduced to some units while other units remain untreated.
+
+Its causal interpretation nevertheless requires a credible account of how treated outcomes would have evolved without treatment. Parallel trends requires the untreated outcome changes of the two groups to agree, in expectation, over the relevant comparison periods. It permits persistent level differences. It does not permit a systematic change in the untreated treated--control gap that is mistaken for a treatment effect. When treatment assignment depends on characteristics that also govern outcome growth, conventional DiD combines the effect of treatment with differential untreated evolution.
+
+This thesis studies the latter component as time-varying selection bias. Examining pre-treatment outcome patterns may reveal divergence, but identifying that divergence does not itself supply an adjusted estimate. A correction also requires an estimate of the untreated group difference after treatment begins and a baseline consistent with the original DiD comparison. The forecasting approach considered here estimates that counterfactual difference and subtracts its predicted change from the conventional estimator.
+
+The research question is whether a correction that matches the functional form of the violation improves treatment-effect estimation, and when the variance introduced by extrapolation offsets its bias reduction. The primary comparison adds a scenario-matched gap correction to a conventional two-way fixed effects (TWFE) benchmark. The original common-slope linear, Synthetic Control, Random Forest and Gradient Boosting adjustments are retained as secondary cross-method comparisons. An empirical application then replaces the simulation's oracle choice of functional form with a rule based only on pre-treatment predictive performance.
+
+The simulation contribution is a controlled comparison across seven scenarios with a known average treatment effect on the treated (ATT). The scenarios include parallel trends, increasing linear trend heterogeneity coupled with treatment selection, quadratic trend heterogeneity, and higher stochastic noise. The panel dimensions and treatment effect are held fixed, allowing the results to be interpreted in relation to the dimensions actually varied. Performance is assessed jointly using bias, variance and root mean squared error (RMSE), with Monte Carlo uncertainty used to qualify close numerical comparisons.
+
+The empirical contribution applies the same adjustment logic to municipality/district-day homicide outcomes during the 2020 police strike in Cear\'a studied by \cite{mancha2025}. The correction is deliberately anchored to a standard unit/date TWFE DID estimated from the replication data; it does not adjust Mancha's published interaction coefficient. No correction, a linear group-gap correction, Synthetic Control, Random Forest and Gradient Boosting are compared in common rolling pre-treatment placebo windows. This converts the simulation's known-truth evaluation into an implementable pre-treatment-only model-selection exercise.
+
+The scenario-matched correction reduces signed bias to near zero in every violation scenario, but its RMSE advantage is conditional. It lowers RMSE materially in moderate and strong linear divergence and in strong quadratic divergence, while raising RMSE when the violation is weak, quadratic curvature is moderate, or outcome noise is high. In the Cear\'a application, Random Forest has the lowest pre-strike placebo RMSE for six of seven outcomes, but its total-homicide advantage over no correction is only 2.6\%. Complete AIS re-selection often changes the winner, so the empirical ranking and strike-period estimates are interpreted cautiously, with all five methods and uncertainty reported. Together, the studies separate functional-form misspecification from the variance cost of forecasting an untreated gap.
+
+Section~\ref{sec:data} defines the simulated data and scenarios. Section~\ref{sec:methodology} describes the estimand, forecasting procedures and evaluation measures. Sections~\ref{sec:results} and \ref{sec:evaluation} report and evaluate the simulation. Section~\ref{sec:empirical} presents the Cear\'a application. Sections~\ref{sec:discussion} and \ref{sec:conclusion} synthesize the simulation and empirical evidence.
+
+\section{Simulation Data}\label{sec:data}
+\subsection{Potential outcomes and treatment assignment}
+Each replication contains a balanced panel of $N=200$ units observed over $T=20$ periods. Periods $1,\ldots,12$ precede treatment and periods $13,\ldots,20$ follow its introduction. Untreated potential outcomes satisfy
+\begin{equation}\label{eq:dgp}
+Y_{it}(0)=\alpha_i+0.10t+\theta_i f_s(t)+\varepsilon_{it},
+\qquad i=1,\ldots,200,\quad t=1,\ldots,20,
+\end{equation}
+where $s$ denotes the scenario, $\alpha_i$ is a unit effect, $0.10t$ is a common time effect, and $\theta_i f_s(t)$ generates heterogeneous trends. The idiosyncratic disturbance is independent Gaussian noise with mean zero and scenario-specific variance $\sigma_{\varepsilon,s}^{2}$.
+
+Three time-invariant observed covariates are generated independently: $X_{1i}\sim N(0,1)$, $X_{2i}\sim\operatorname{Bernoulli}(0.5)$ and $X_{3i}\sim U[-1,1]$. They enter the outcome through
+\begin{equation}\label{eq:alpha}
+\alpha_i=0.60X_{1i}-0.40X_{2i}+0.30X_{3i}+a_i,
+\qquad a_i\sim N(0,1).
+\end{equation}
+The trend loading is $\theta_i\sim N(0,\sigma_{\theta,s}^{2})$, independently of these covariates and $a_i$. In the parallel-trends scenario, $\theta_i=0$ for every unit. Disturbances are independent across units and periods; the design contains neither serial correlation nor stochastic common shocks.
+
+Treatment-group membership is assigned once for each unit according to
+\begin{equation}\label{eq:assignment}
+D_i\mid\theta_i\sim\operatorname{Bernoulli}(p_i),
+\qquad p_i=\frac{\exp(-0.40+\delta_{1,s}\theta_i)}{1+\exp(-0.40+\delta_{1,s}\theta_i)}.
+\end{equation}
+The treated share is random, with both groups required in each panel. All final replications contain both groups on their first generation attempt. Positive $\delta_{1,s}$ makes treatment more likely for units with larger trend loadings. Thus, except in the parallel-trends scenario, treatment selection and heterogeneous trends can generate an increasing untreated group difference.
+
+Let $P_t=\mathbf{1}\{t>12\}$ and $D_{it}=D_iP_t$. Outcomes are constructed as
+\begin{equation}\label{eq:observed}
+Y_{it}(1)=Y_{it}(0)+2P_t,
+\qquad Y_{it}=Y_{it}(0)+2D_{it}.
+\end{equation}
+There is no anticipatory effect. The treatment effect is constant across units and post-treatment periods, so both the period-specific post-treatment ATT and its average over periods $13$--$20$ equal $\tau=2$. Oracle untreated outcomes are retained for simulation evaluation, but are excluded from the forecasting models' inputs.
+
+\subsection{Scenario variation and Monte Carlo design}
+Table~\ref{tab:scenarios} specifies all seven scenarios. The labels S0--S6 are used consistently in subsequent tables and figures. Shared parameters are the panel dimensions, treatment date, ATT, intercept coefficients, mean trend loading zero, treatment-assignment intercept $-0.40$, and common time slope $0.10$.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Implemented simulation scenarios.}\label{tab:scenarios}
+\begin{tabular}{llrrr}
+\toprule
+Scenario & Trend function and description & $\sigma_{\theta,s}$ & $\delta_{1,s}$ & $\sigma_{\varepsilon,s}$ \\
+\midrule
+S0 & Linear; parallel trends & 0 & 0 & 1 \\
+S1 & Linear; weak heterogeneity & 0.0200 & 10 & 1 \\
+S2 & Linear; moderate heterogeneity & 0.0500 & 10 & 1 \\
+S3 & Linear; strong heterogeneity & 0.1000 & 10 & 1 \\
+S4 & Quadratic; moderate heterogeneity & 0.0025 & 200 & 1 \\
+S5 & Quadratic; strong heterogeneity & 0.0050 & 200 & 1 \\
+S6 & Linear; moderate heterogeneity, high noise & 0.0500 & 10 & 3 \\
+\bottomrule
+\end{tabular}
+\par\smallskip\begin{minipage}{0.95\linewidth}\footnotesize Linear scenarios use $f_s(t)=t$; quadratic scenarios use $f_s(t)=t^2$. Entries for $\sigma_{\theta,s}$ and $\sigma_{\varepsilon,s}$ are standard deviations, not variances. All scenarios have $N=200$, $T=20$, $T_0=12$ and $\tau=2$.\end{minipage}
+\end{table}
+
+S1--S3 increase the dispersion of linear trend loadings while holding the assignment coefficient fixed. This increases both the scope for heterogeneous growth and the dispersion of treatment propensities. S4--S5 introduce curvature using smaller loading scales and a larger assignment coefficient. They are not a change in functional form alone relative to the linear scenarios. S6 retains S2's trend and assignment parameters but triples the error standard deviation, increasing its variance ninefold. Scenario-specific seeds mean that S2 and S6 do not share identical underlying draws.
+
+For intuition, conditional on realized group composition and latent effects, the expected untreated gap is the difference in mean unit effects plus the difference in mean trend loadings multiplied by $f_s(t)$. Differencing the average post and pre gaps removes the unit-effect difference. The post-minus-pre average of $t$ is $10$, whereas that of $t^2$ is $670/3$. These deterministic multipliers explain why small quadratic loadings can still create appreciable DiD bias. Random group-average disturbances contribute sampling variation around this conditional relationship.
+
+The completed Monte Carlo study contains $R=500$ replications per scenario. All six estimators are evaluated on the same panel within a replication, giving 3,500 panels, 17,500 original estimator results, and 3,500 newly generated scenario-matched estimates. A separate 50-replication pilot is excluded from the reported final summaries. With scenario index $j=1,\ldots,7$, the final data seed is $20370000+100000j+r$. Random Forest and Gradient Boosting use offsets of $3{,}000{,}000$ and $4{,}000{,}000$, respectively, from that data seed. The calculations use R; the reproduction environment is R 4.5.0 with Random Forest 4.7-1.2, GBM 2.3.1 and Synth 1.1-10.
+
+\section{Methodology}\label{sec:methodology}
+\subsection{TWFE and the selection-bias estimand}
+Write $\overline{Y}_{dt}$ for the sample mean outcome among units with $D_i=d$ at time $t$, and define $G_t=\overline{Y}_{1t}-\overline{Y}_{0t}$. For any time series $z_t$, let $\overline z_{\mathrm{pre}}$ and $\overline z_{\mathrm{post}}$ denote its equally weighted averages over the 12 pre-treatment and eight post-treatment periods, respectively. The conventional TWFE specification is
+\begin{equation}\label{eq:twfe}
+Y_{it}=a_i+\lambda_t+\tau^{\mathrm{TWFE}}D_{it}+u_{it}.
+\end{equation}
+With this balanced panel and common adoption date, its estimated treatment coefficient is exactly
+\begin{equation}\label{eq:did}
+\widehat\tau^{\mathrm{TWFE}}=\overline G_{\mathrm{post}}-\overline G_{\mathrm{pre}}.
+\end{equation}
+The Monte Carlo study uses this algebraic representation. It evaluates a single average post-treatment estimate per replication. Time-invariant covariates are absorbed by unit effects and do not add separately identified regressors to this benchmark.
+
+Define $G_t^0=\overline{Y(0)}_{1t}-\overline{Y(0)}_{0t}$. The realized selection-bias component aligned with Equation~\ref{eq:did} is
+\begin{equation}\label{eq:truebias}
+B=\overline G^0_{\mathrm{post}}-\overline G^0_{\mathrm{pre}},
+\qquad \widehat\tau^{\mathrm{TWFE}}=\tau+B.
+\end{equation}
+The population counterpart of $B$ captures systematic nonparallel evolution. Its realized value additionally includes differences in group-average disturbances. Under parallel trends, its expectation is zero, although it need not vanish in a particular replication. The baseline is the average pre-treatment gap; replacing it by the last pre-period gap would change the quantity required to adjust this TWFE estimator.
+
+\subsection{Forecasting-based adjustment}
+For forecasting method $m$, let $\widehat G^0_{t,m}$ denote its predicted untreated treated--control gap. The period-specific correction component and its post-treatment average are
+\begin{equation}\label{eq:forecastbias}
+\widehat{SB}_{t,m}=\widehat G^0_{t,m}-\overline G_{\mathrm{pre}},
+\qquad \widehat B_m=\frac{1}{8}\sum_{t=13}^{20}\widehat{SB}_{t,m}.
+\end{equation}
+The evaluated adjusted estimator is
+\begin{equation}\label{eq:adjusted}
+\widehat\tau_m^{\mathrm{adj}}=\widehat\tau^{\mathrm{TWFE}}-\widehat B_m.
+\end{equation}
+Thus an untreated outcome prediction is an input to a predicted group gap; the change in that gap is an estimated selection-bias term; and subtracting that term yields a treatment-effect estimate. These quantities have distinct roles.
+
+For Linear, Random Forest and Gradient Boosting, the predicted gap is the difference between predicted untreated outcomes averaged separately over both groups. All three methods train exclusively on the 2,400 observations from periods $1$--$12$, then generate predictions for all units and periods. Synthetic Control instead forecasts the aggregate treated path from weighted observed donor outcomes and subtracts the observed control-group mean. It therefore uses contemporaneous untreated donor outcomes in post-treatment periods. No method fits to treated post-treatment outcomes or to the stored oracle untreated outcomes.
+
+
+\subsection{Scenario-matched group-gap correction}\label{sec:matchedmethod}
+The primary new estimator models the twelve observed pre-treatment gaps directly. Let $g_t=\overline Y_{1t}-\overline Y_{0t}$ for $t\leq12$. In S0, where the DGP imposes parallel trends, no correction is applied and $\widehat B=0$. In the linear-violation scenarios S1--S3 and S6, ordinary least squares estimates
+\begin{equation}\label{eq:lineargap}
+g_t=a+bt+e_t,\qquad t=1,\ldots,12.
+\end{equation}
+In the quadratic scenarios S4--S5 it estimates
+\begin{equation}\label{eq:quadraticgap}
+g_t=a+bt+ct^2+e_t.
+\end{equation}
+Each fitted polynomial is extrapolated to periods 13--20. The correction remains the difference between the mean predicted post-treatment gap and the observed mean pre-treatment gap, and the adjusted estimate remains Equation~\ref{eq:adjusted}. Because OLS with an intercept reproduces the mean of the dependent variable in sample,
+\begin{equation}\label{eq:gapclosedform}
+\widehat B_{\mathrm{linear}}=10\widehat b,
+\qquad
+\widehat B_{\mathrm{quadratic}}=10\widehat b+\frac{670}{3}\widehat c.
+\end{equation}
+The constants follow from $\overline t_{\mathrm{post}}-\overline t_{\mathrm{pre}}=10$ and $\overline{t^2}_{\mathrm{post}}-\overline{t^2}_{\mathrm{pre}}=670/3$.
+
+The polynomial order is assigned from the known simulation scenario. The method therefore measures performance when the correction's functional form is correctly specified; it is an oracle benchmark, not a deployable data-driven selection rule. In an empirical application, the order would need to be specified before examining post-treatment treated outcomes or chosen only from pre-treatment evidence with suitable validation and uncertainty accounting. This distinction prevents the simulation's DGP knowledge from being treated as information available to an applied researcher.
+
+\subsection{Common-slope linear forecasting}
+The linear forecaster includes unit intercepts and a single common deterministic time slope:
+\begin{equation}\label{eq:linear}
+Y_{it}=c_i+\beta t+v_{it},\qquad t\leq12,
+\qquad \widehat Y_{it}(0)=\widehat c_i+\widehat\beta t.
+\end{equation}
+The slope is estimated from within-unit deviations in the pre-treatment sample. Each fitted intercept is $\widehat c_i=\overline Y_{i,\mathrm{pre}}-\widehat\beta\,\overline t_{\mathrm{pre}}$. The time-invariant covariates are absorbed by these intercepts. There are no group-specific or unit-specific slope terms.
+
+Because both groups have the same observed periods, the common forecast slope cancels in their predicted difference. The remaining difference in fitted intercepts equals $\overline G_{\mathrm{pre}}$. Consequently,
+\begin{equation}\label{eq:linearzero}
+\widehat G^0_{t,\mathrm{Linear}}=\overline G_{\mathrm{pre}},
+\qquad \widehat B_{\mathrm{Linear}}=0,
+\qquad \widehat\tau^{\mathrm{adj}}_{\mathrm{Linear}}=\widehat\tau^{\mathrm{TWFE}}.
+\end{equation}
+This identity is part of the implemented comparison and is retained in reporting the results.
+
+\subsection{Synthetic Control}
+Synthetic Control represents the treated group by its average outcome series and uses every untreated unit as a donor. The sole matching predictor is each unit's mean outcome over periods $1$--$12$. No separate lagged outcomes, covariates or trend measures are included. With nonnegative donor weights summing to one, the relevant matching problem is
+\begin{equation}\label{eq:synthweights}
+\min_{\{w_j\}}\left(\overline Y_{1,\mathrm{pre}}-\sum_{j:D_j=0}w_j\overline Y_{j,\mathrm{pre}}\right)^2,
+\qquad w_j\geq0,\quad\sum_{j:D_j=0}w_j=1.
+\end{equation}
+Scaling the single predictor does not change this objective's minimizers. The Synth implementation fixes the predictor weight to one in this case and obtains donor weights using its default constrained quadratic-programming routine. Although the pre-treatment periods are also supplied as outcome-fit periods, there is no outer predictor-weight optimization with only one predictor. The full trajectory loss is calculated after the weights are obtained; it does not select them in this specification.
+
+The resulting forecasts are
+\begin{equation}\label{eq:synthprediction}
+\widehat{\overline Y(0)}_{1t,\mathrm{SC}}=\sum_{j:D_j=0}\widehat w_jY_{jt},
+\qquad \widehat G^0_{t,\mathrm{SC}}=\sum_{j:D_j=0}\widehat w_jY_{jt}-\overline Y_{0t}.
+\end{equation}
+Substitution into Equation~\ref{eq:adjusted} yields the average post-treatment difference between observed treated outcomes and the synthetic series. The comparison does not include an additional adjustment for the synthetic series' pre-treatment residual gap.
+
+\subsection{Random Forest and Gradient Boosting}
+Random Forest uses six predictors: numeric unit identifier, time, treatment-group membership, and the three observed covariates. It fits a regression forest with 500 trees and two candidate predictors per split. Other settings retain the installed regression defaults, including replacement sampling and terminal node size five. Unit identifiers are numerical predictors, rather than a complete set of categorical fixed effects. Predictions for both groups enter Equation~\ref{eq:forecastbias}. Hyperparameters are fixed in advance; no cross-validation search is undertaken.
+
+Gradient Boosting uses the same substantive predictors, ordered as time, treatment-group membership, the three covariates and numeric unit identifier. It minimizes Gaussian loss using 800 trees of interaction depth three, shrinkage 0.01, minimum node size ten and a bag fraction of 0.7. The full pre-treatment sample is available for training, cross-validation folds are zero, and prediction uses all 800 trees. There is no validation-based stopping rule or hyperparameter selection.
+
+Both procedures use constant-leaf regression trees. For a given unit, every post-treatment time lies beyond the largest training time, while all remaining predictors are constant. Each unit therefore follows the same branches at every post-treatment date and receives the same prediction throughout periods $13$--$20$. The methods can learn nonlinear relationships and group differences within the training sample, but these specifications do not extrapolate a continuing time trend beyond it.
+
+\subsection{Transfer to the empirical design}
+The empirical application preserves the same correction identity but cannot copy the simulation's oracle functional-form choice or its synthetic covariates. For each of five pre-specified procedures, the target is the untreated treated--control gap averaged over the 13 strike days, measured in exactly the same unit and weighting scheme as a balanced unit/date TWFE DID. The correction is its predicted change from the common 84-day pre-strike gap. In particular, a Synthetic Control forecast based on contemporaneous donor outcomes and a tree forecast based solely on pre-strike outcomes both enter the \emph{same} gap-change formula, despite their different information sets. The empirical forest and boosting models replace unavailable $X_1,X_2,X_3$ with forecast-known calendar and group indicators and fit daily arm-level mean outcomes; this adaptation is explicitly distinct from the unit-level simulation models.
+
+With no observed untreated strike-period treated outcome, true ATT bias and RMSE cannot be calculated as in the simulation. Instead, all five candidates are repeatedly re-fitted in earlier 84-day windows and asked to forecast the following 13 untreated days; the pseudo-effect has known value zero. Pre-strike RMSE selects the empirical procedure. This is model-selection evidence under historical conditions, not an observation that the strike-period bias has been removed. The application reports both selected and non-selected estimates and resamples AIS for uncertainty, including re-selection for the primary outcome.
+
+\subsection{Performance metrics and Monte Carlo uncertainty}
+Let $\widehat\tau_{r,s,m}$ denote a treatment-effect estimate and $e_{r,s,m}=\widehat\tau_{r,s,m}-2$. Omitting scenario and method subscripts for brevity, the signed Monte Carlo bias and finite-sample empirical variance are
+\begin{equation}\label{eq:biasvariance}
+\widehat{\operatorname{Bias}}=\frac{1}{R}\sum_{r=1}^{R}e_r,
+\qquad V_R=\frac{1}{R}\sum_{r=1}^{R}(\widehat\tau_r-\overline{\widehat\tau})^2.
+\end{equation}
+Absolute bias is the absolute value of signed bias. It differs from mean absolute error, which averages the absolute replication errors. RMSE is
+\begin{equation}\label{eq:rmse}
+\widehat{\operatorname{RMSE}}=\left(\frac{1}{R}\sum_{r=1}^{R}e_r^2\right)^{1/2},
+\qquad \widehat{\operatorname{RMSE}}^2=\widehat{\operatorname{Bias}}^2+V_R.
+\end{equation}
+The stored empirical standard deviation uses denominator $R-1$. The variance in Equation~\ref{eq:biasvariance} is reconstructed with denominator $R$ for the exact finite-sample decomposition in Equation~\ref{eq:rmse}; both conventions are retained in the supplementary numerical results. Relative signed bias divides signed bias by two and multiplies by 100. Additional recorded summaries include mean estimates, failure rates, selection-bias errors and computation times. No single primary performance metric is designated.
+
+Monte Carlo standard error (MCSE) for an estimated mean or signed bias is
+\begin{equation}\label{eq:mcse}
+\widehat{\operatorname{MCSE}}=\frac{s_{\widehat\tau}}{\sqrt R},
+\qquad s_{\widehat\tau}^2=\frac{1}{R-1}\sum_{r=1}^{R}(\widehat\tau_r-\overline{\widehat\tau})^2.
+\end{equation}
+To assess close comparisons, supplementary diagnostics pair methods within the same replication. For methods $m$ and $k$, define $q_r=e_{r,m}^2-e_{r,k}^2$. The mean of $q_r$ estimates their difference in mean squared error, and its MCSE is the sample standard deviation of $q_r$ divided by $\sqrt R$. This diagnostic accounts for common simulated panels and supplements the original metrics without imposing a primary ranking criterion.
+
+The later interval calculation uses the Monte Carlo mean plus or minus $t_{0.975,R-1}s_{\widehat\tau}/\sqrt R$. Such intervals quantify simulation uncertainty about the expected estimator. They are not confidence intervals computed within individual simulated datasets. The study does not implement dataset-specific intervals for all estimators or evaluate their ATT coverage across replications. Coverage is therefore not reported as a performance finding.
+
+Finally, the selection-bias forecast error and adjusted treatment-effect error satisfy
+\begin{equation}\label{eq:erroridentity}
+\widehat\tau_m^{\mathrm{adj}}-\tau=B-\widehat B_m.
+\end{equation}
+Their RMSEs are identical. This identity makes accurate estimation of the relevant aggregate bias directly consequential for treatment-effect error, but it does not establish that low individual-outcome prediction error guarantees low ATT error. No repeated outcome-level forecast-validation metric is available for the final Monte Carlo comparison.
+
+\section{Simulation Results}\label{sec:results}
+\subsection{Validation and primary comparison}
+The scenario-matched correction was regenerated for all 3,500 final panels using the original seeds. Each regenerated TWFE estimate and realized selection-bias value matches the saved final result to within $4.9\times10^{-15}$. All estimates are finite; every scenario contains 500 replications; the closed-form identities in Equation~\ref{eq:gapclosedform}, the ATT-error identity in Equation~\ref{eq:erroridentity}, and the finite-sample MSE decomposition hold to numerical precision.
+
+Table~\ref{tab:matched} reports the primary comparison. S0 is unchanged by construction. The matched estimator's largest absolute signed bias is 0.0314, in S4; its other violation-scenario biases range from $-0.0045$ to 0.0012. Correct specification therefore removes nearly all systematic bias on average. Precision changes less uniformly because linear and especially quadratic extrapolation estimate coefficients from only twelve group-gap observations.
+
+\input{tables/scenario_matched_performance.tex}
+
+In S2, S3 and S5, the bias reduction is large enough to dominate the added variance. RMSE falls from 0.2486 to 0.1344 in S2, from 0.8345 to 0.1377 in S3, and from 0.9314 to 0.4058 in S5. These are reductions of 46.0\%, 83.5\% and 56.4\%, respectively. The paired MSE differences are $-0.04375$, $-0.67743$ and $-0.70278$, each far larger in magnitude than its Monte Carlo standard error.
+
+The same correction raises RMSE in S1, S4 and S6. Under weak linear divergence (S1), RMSE increases from 0.0819 to 0.1372 because there is little initial bias to remove. Under moderate quadratic divergence (S4), the quadratic fit reduces signed bias from 0.2647 to $-0.0314$ but raises variance from 0.01039 to 0.13836, increasing RMSE to 0.3733. Under high noise (S6), bias falls from 0.2295 to 0.0012 while RMSE rises from 0.3052 to 0.3971. Correct functional form does not by itself minimize mean squared error.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\linewidth]{figures/scenario_matched_paired_mse.pdf}
+\caption{Paired mean squared error differences between the scenario-matched correction and TWFE. Negative values favor the correction. Bars show 1.96 Monte Carlo standard errors; they quantify simulation uncertainty and are not treatment-effect confidence intervals.}\label{fig:matchedpaired}
+\end{figure}
+
+\subsection{Updated six-estimator comparison}
+The full comparison in Table~\ref{tab:overall} and Figure~\ref{fig:comparison} retains the original estimators and adds the scenario-matched benchmark. The matched estimator has the smallest absolute bias in S1--S6 and ties TWFE and the common-slope adjustment in S0. It has the lowest RMSE in S2, S3 and S5. In S1, S4 and S6, its near-zero bias comes with sufficient variance that TWFE or another original estimator has lower RMSE. The original common-slope adjustment remains exactly equal to TWFE in every replication; it should not be confused with the new group-gap regression, which permits the treated--control gap to evolve.
+
+{\small\input{tables/overall_comparison.tex}}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.94\linewidth]{figures/updated_bias_rmse_comparison.pdf}
+\caption{Signed bias and RMSE for the scenario-matched benchmark, TWFE and the four original adjustments. Values use 500 replications per scenario.}\label{fig:comparison}
+\end{figure}
+
+\clearpage
+\section{Evaluation}\label{sec:evaluation}
+\subsection{What changes when the correction matches the violation}
+The earlier common-slope model estimated one time slope shared by treated and control units. That slope cancels when group predictions are differenced, forcing the predicted gap to be constant and the estimated correction to zero. The new linear-gap procedure instead estimates the slope of the group difference itself. It can therefore recover a linear selection-bias path. For quadratic violations, the additional squared-time term is essential: a linear extrapolation would force constant growth in a gap whose slope is changing.
+
+The near-zero average biases in S1--S6 show that this distinction matters. Under the simulated DGP, the untreated group gap is linear or quadratic apart from group-average disturbance noise, so the matched regression targets the same post-minus-pre gap change that contaminates TWFE. This is a statement about correct specification in this design. It does not show that a researcher can infer the true polynomial order from one short pre-treatment series without error.
+
+\subsection{Bias--variance trade-off}
+The matched correction estimates a small time series of group gaps and extrapolates beyond its observed support. Even with the correct order, coefficient noise is magnified by the post-treatment horizon. The linear correction has variance about 0.018--0.019 in S1--S3, compared with TWFE variance between 0.004 and 0.020. Its extra variance is worthwhile only once the linear violation is large enough. High outcome noise increases the matched estimator's variance to 0.1577 in S6. The quadratic correction is more variable because the linear and squared-time coefficients jointly determine predictions outside the training range; its variance is 0.1384 in S4 and 0.1647 in S5.
+
+These results clarify the supervisor's point. Different violation shapes require different correction functions, but matching the shape addresses bias rather than guaranteeing lower RMSE. A useful correction must balance three features: whether the functional form is credible, whether the pre-period contains enough information to estimate it, and whether the violation is large enough to justify the added sampling variation.
+
+\subsection{Relation to the original forecasting methods}
+The original methods remain informative as deliberately imperfect alternatives. Synthetic Control matches one pre-treatment mean and need not reproduce a latent trend loading. Random Forest and Gradient Boosting use constant-leaf trees; with all post-treatment dates beyond the training support, their unit-level post-treatment forecasts are flat. Random Forest partially reduces bias in several scenarios, but it does not fully extrapolate continued linear or quadratic divergence. The matched polynomial benchmark isolates the gain available from imposing the correct functional form, while the comparison methods illustrate what happens when prediction flexibility within the pre-period does not translate into appropriate extrapolation.
+
+The methods also use different information sets. Synthetic Control uses contemporaneous untreated donor outcomes after treatment, whereas the polynomial and other prediction models train on pre-treatment outcomes. The comparison should therefore be read as a comparison of complete procedures, not pure algorithms holding all inputs fixed.
+
+\subsection{Limitations of the simulation study}
+The simulation fixes the number of units, periods, treatment date, treatment effect and error structure. It excludes serial correlation, common shocks, staggered adoption, treatment-effect heterogeneity, missingness and structural breaks. Only twelve pre-treatment gap observations estimate each polynomial. Standard errors and confidence-interval coverage for the adjusted estimators are not developed here.
+
+The main new limitation is explicit use of scenario labels to choose the correction. This is appropriate for an oracle simulation benchmark because it asks whether the right functional form can remove the designed violation. It would be invalid to present the same rule as an empirical estimator when the true counterfactual shape is unknown. The empirical study below therefore pre-specifies no correction, a linear group gap, Synthetic Control, Random Forest and Gradient Boosting, selects among them using rolling pre-treatment windows, and reports all five estimates as sensitivity results. Its machine-learning features differ from the simulated covariates because those covariates are not available in the homicide data.
+
+Within these limits, the simulation supports a precise conclusion: scenario-matched gap extrapolation removes average selection bias, but it improves overall accuracy only when the avoided bias is large relative to extrapolation variance. This conclusion is stronger and more narrowly defined than a claim that one correction should be used for every violation scenario.
+
+\input{empirical_rebuild_section.tex}
+
+\begin{thebibliography}{9}
+\bibitem{mancha2025}
+Mancha, A. (2025).
+When the State steps down: Reduced police surveillance and gang-related deaths in Brazil.
+\emph{World Development}, 189, 106925.
+\end{thebibliography}
+
+\end{document}
+

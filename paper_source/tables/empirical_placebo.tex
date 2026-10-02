@@ -1,0 +1,14 @@
+\begin{table}[htbp]
+\centering\small
+\caption{Pre-treatment placebo evaluation for total homicides.}\label{tab:empiricalplacebo}
+\begin{tabular}{lrrrrr}
+\toprule
+Method & Signed bias & Variance & MAE & RMSE & $\Delta$MSE vs. TWFE \\
+\midrule
+TWFE & 0.000250 & 0.000064 & 0.00673 & 0.00803 & --- \\
+Linear BC-TWFE & $-0.000151$ & 0.000083 & 0.00751 & 0.00913 & 0.000019 \\
+Quadratic BC-TWFE & $-0.000116$ & 0.000166 & 0.01019 & 0.01287 & 0.000101 \\
+\bottomrule
+\end{tabular}
+\par\smallskip\begin{minipage}{0.94\linewidth}\footnotesize Notes: Each placebo exercise uses 12 weeks to estimate the gap specification and the following two weeks as a pseudo-post period with treatment effect set to zero. Windows advance by two weeks. Variance uses the population denominator to preserve the exact MSE decomposition. $\Delta$MSE is the paired mean squared-error difference relative to TWFE; positive values favor TWFE.\end{minipage}
+\end{table}
